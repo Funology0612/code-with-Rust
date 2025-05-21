@@ -52,11 +52,13 @@ println!("Welcome to {0} in the year {1}. Yes, {0} is awesome!", x, y);
 # Underscore with Variables
 Trong Rust, nếu khai báo và gán giá trị cho một biến nhưng không sử dụng thì nó sẽ tạo ra 1 warning
 ![example](warning.png)
+
 Thêm `_` trước tên biến là xong `_fruits` 
 # Immutable and Mutable Variables
 **Immutable** là biến không thể thay đổi được, **Mutable** là biến có thể thay đổi được
 Khi khai báo biến, Rust mặc định đó là biến bất biến (Immutable variable). Sau khi khai báo, nếu thay đổi giá trị của biến, trình biên dịch sẽ báo lỗi
 ![example](error.png)
+
 Cho nên, nếu muốn thay đổi giá trị biến, ta phải khai báo đó là biến **Mutable**
 ```c
 let mut apples = 50;
@@ -123,6 +125,7 @@ Kết quả:
 >The coffee price is 5.99
 # Constants
 **Constants (hằng số)** là những giá trị cố định được xác định một lần và không thể thay đổi
+
 Quy tắc khai báo:
 * Phải ghi rõ kiểu dữ liệu: f64, i32, usize,...
 * Tên hằng viết hoa + gạch dưới: MAX_SPEED, TAX_RATE,...
@@ -137,3 +140,152 @@ fn main() {
 ```
 >Max speed: 640
 # Type Aliases
+Trong Rust, **type alias** được khai báo bằng từ khóa `type`. Đây là cách đặt tên khác cho một kiểu dữ liệu hiện có, thường dùng để:
+
+* Rút gọn các kiểu dài dòng (như Result<T, MyError>)
+* Làm mã dễ đọc hơn
+* Dễ tái sử dụng
+
+Ví dụ: 
+```c
+type Meters = i32;
+fn main() {
+    let mile_race_length: Meters = 1600;
+    let two_mile_race_length: Meters = 3200;
+    println!("A mile: {mile_race_length}");
+    println!("Two mile: {two_mile_race_length}");
+}
+```
+>A mile: 1600
+>Two mile: 3200
+
+# Compiler Directives
+Trong Rust, **compiler directives (chỉ thị tiền xử lý)** được bắt đầu bằng attributes `#` dùng để hướng dẫn cho compiler về cách biên dịch mã nguồn. Chúng không tạo ra mã máy mà tác động đến quá trình dịch mã 
+`#[allow(...)]` bỏ qua warnings của compiler
+Ví dụ:
+Code chưa có `allow`
+![example](before_allow.png)
+
+Sau khi `allow`
+![example](allow1.png)
+
+![example](allow2.png)
+
+Ngoài ra, có thể đặt chỉ thị `allow` ngoài hàm `main` để áp dụng cho nguyên hàm (như global) nhưng cú pháp sửa đổi một chút `#![allow(unused_variables)]`
+
+# Quiz
+## What keyword declares a variable?
+* var
+* declare
+* const
+* let
+>let
+## A variable is ____ by default?
+* mutable
+* immutable
+>immutable
+## What characters interpolate a dynamic value into a string?
+* <>
+* {}
+* :?
+* ""
+>{}
+## Rust counts positions starting from?
+* -1
+* 0
+* 1
+* 2
+>0
+## What keyword declare a variable as mutable?
+* none. A variable is mutable by default
+* mute
+* mut
+* mutable
+>mut
+## What character tells the compiler to ignore an unused variable?
+* \#
+* !
+* ?
+* _
+> _
+## What will be the result of this code?
+```c
+fn main(){
+    let latte = "Latte";
+    let cappuccino = "Cappuccino";
+    println!("I like {1} and {2}", latte, cappuccino);
+}
+```
+* "i like Latte and Cappuccino"
+* "I like Cappuccino and Latte"
+* "I like latte and cappuccino"
+* The code will not compile
+> The code will not compile
+## What is the correct syntax for applying a compiler directive to the following line?
+* [allow(unused_variables)]
+* #[allow(unused_variables)]
+* #[!allow(unused_variables)]
+* !#[allow(unused_variables)]
+* #(allow[unused_variables])
+> #[allow(unused_variables)]
+## What keyword declares a constant in the program?
+* let
+* const
+* var
+* final
+> const
+## How do I fix the following code?
+```c
+fn main(){
+    let city = "Metropolis";
+    city = "Gotham";
+}
+```
+* The code doesn't need a fix. It will compile and run fine
+* Add a mut keyword before the let keyword in the variable declaration
+* Add a mut keyword after the let keyword in the variable declaration
+* Add a mut keyword before the city variable when assigning the new value ("Gotham") to it
+> Add a mut keyword after the let keyword in the variable declaration
+## What word means "the region of code where a name is valid"?
+* Function
+* Source code
+* Compilation
+* Scope
+> Scope
+## What's wrong with the following code?
+```c
+fn main(){
+    let mut genre = "Romance";
+    genre = 52;
+}
+```
+* There is nothing wrong with the code
+* The mut keyword is not required
+* There shouldn't be a semicolon after the assignment of 52
+* The code is trying to assign an integer to a variable expecting a string
+> The code is trying to assign an integer to a variable expecting a string
+## Which characters create a block?
+* Pair of parentheses (())
+* Pair of square brackets ([])
+* Two forward slashes (//)
+* Opening and closing braces ({})
+> Opening and closing braces ({})
+## What keyword declares an alias/nickname for an existing type?
+* redeclare
+* type
+* alias
+* rename
+> type
+## What will be output when this code runs?
+```c
+fn main(){
+    let city = "Huntington";
+    println!("{city}");
+    let city = "Plainview";
+}
+```
+* Huntington
+* Plainview
+* city
+* {city}
+> Huntington
